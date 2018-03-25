@@ -1,0 +1,16 @@
+
+box: debian
+build:
+  steps:
+    - arjen/hugo-build:
+        version: "1.29.1"
+        theme: hugo-theme-cactus-plus
+        flags: --buildDrafts=true
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - lukevivier/gh-pages@0.2.1:
+        token: $GIT_TOKEN
+        domain: hellohy.github.io
+        basedir: public
