@@ -1,5 +1,5 @@
 baseurl                 = "https://hellohy.github.io"               # Your domain name. Must end with "/"
-languageCode            = "zh-cn"
+languageCode            = "zh-CN"
 title                   = "Hellohy"
 theme                   = "hugo-theme-sam"
 googleAnalytics         = "UA-104668275-1"             # Tracking code, eg. "UA-111111111-1"
