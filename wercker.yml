@@ -1,16 +1,16 @@
 
-box: debian
+box: golang:latest
 build:
   steps:
-    - arjen/hugo-build:
-        version: "1.29.1"
-        theme: hugo-theme-cactus-plus
-        flags: --buildDrafts=true
+      - arjen/hugo-build:
+        version: "HEAD"
+        theme: hugo-theme-sam
 deploy:
   steps:
     - install-packages:
-        packages: git ssh-client
-    - lukevivier/gh-pages@0.2.1:
-        token: $GIT_TOKEN
-        domain: hellohy.github.io
+        packages: git
+    - leipert/git-push:
+        gh_oauth: $GIT_TOKEN
+        repo: hellohy/hellohy.github.io
+        branch: master
         basedir: public

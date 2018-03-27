@@ -1,34 +1,34 @@
-baseurl                 = "https://hellohy.github.io"               # Your domain name. Must end with "/"
-languageCode            = "zh-cn"
-title                   = "Hellohy"
-theme                   = "hugo-theme-sam"
-googleAnalytics         = "UA-104668275-1"             # Tracking code, eg. "UA-111111111-1"
+baseurl                 = "/"               # Your domain name. Must end with "/"
+languageCode            = "en-us"
+title                   = "Call me Sam"
+theme                   = "sam"
+# googleAnalytics       = "xxx"             # Tracking code, eg. "UA-111111111-1"
 
 [params]
-    dateform            = "2006-01-02"
-    dateformfull        = "2006-01-02 15:04"
+    dateform            = "Mon Jan 02, 2006"
+    dateformfull        = "Mon Jan 2 2006 15:04:05 EST"
     favicon             = "/sam.ico"
     pygmentsStyle       = "monokai"                     # https://help.farbox.com/pygments.html
     pygmentsCodefences  = true
-    homepage            = "首页"                        # What to call the home page link
+    homepage            = "main"                        # What to call the home page link
     galleryFolder       = "images/"                     # Where you've put your images, after "/content/gallery/"
     clickablePhotos     = true                          # Allow links to the full size images
-    footerText          = "Hi, my name is Hellohy"
+    footerText          = "Call me Sam, a theme for Hugo."
 
 # Metadata
-    description         = "javascript,grahp,hellohy"            # Max 160 characters show in search results
+    description         = "A new Hugo site."            # Max 160 characters show in search results
     twitterCard         = "summary_large_image"         # Card value “summary”, “summary_large_image”, “app”, or “player”
     primaryImage        = "/tn.png"                     # Image that shows on Twitter cards and OpenGraph links
 
 [[params.mainMenu]]
     link = "/posts"
-    text = "文章"
+    text = "writing"
 
 [[params.mainMenu]]
     link = "/gallery"
-    text = "图片"
+    text = "gallery"
 
 [[params.mainMenu]]
     link = "/about"
-    text = "关于我"
+    text = "who is sam?"
     
