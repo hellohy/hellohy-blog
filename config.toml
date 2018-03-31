@@ -1,34 +1,43 @@
-baseurl                 = "https://hellohy.github.io"               # Your domain name. Must end with "/"
-languageCode            = "zh-CN"
-title                   = "Hellohy"
-theme                   = "hugo-theme-sam"
-googleAnalytics         = "UA-104668275-1"             # Tracking code, eg. "UA-111111111-1"
+## Basic Configuration
+baseurl = "https://hellohy.github.io"
+languageCode = "zh-CN"
 
+theme = "hyde-hyde"
+
+## Hugo Built-in Features
+# disqusShortname = ""
+# googleAnalytics = ""
+# enableRobotsTXT = true
+
+## Site Settings
 [params]
-    dateform            = "2006-01-02"
-    dateformfull        = "2006-01-02 15:04"
-    favicon             = "/sam.ico"
-    pygmentsStyle       = "monokai"                     # https://help.farbox.com/pygments.html
-    pygmentsCodefences  = true
-    homepage            = "首页"                        # What to call the home page link
-    galleryFolder       = "images/"                     # Where you've put your images, after "/content/gallery/"
-    clickablePhotos     = true                          # Allow links to the full size images
-    footerText          = "Hi, my name is Hellohy"
+    author = "Hellohy"
+    title = "Title"
+    # description = "..."
+    authorimage = "/img/about.jpg"
+    dateformat = "2006-01-02 15:04"
+    highlightjs = true
+    # highlightjsstyle = "github"
 
-# Metadata
-    description         = "javascript,grahp,hellohy"            # Max 160 characters show in search results
-    twitterCard         = "summary_large_image"         # Card value “summary”, “summary_large_image”, “app”, or “player”
-    primaryImage        = "/tn.png"                     # Image that shows on Twitter cards and OpenGraph links
+## Social Accounts
+[params.social]
+    github = "hellohy"
+    # instagram = "<username>"
+    # xing = "<username>"
+    # linkedin = "<username>"
+    # twitter = "<username>"
+    # facebook = "<username>"
+    # stackoverflow = "<username>"
+    email = "hitcloudy@gmail.com"
 
-[[params.mainMenu]]
-    link = "/posts"
-    text = "文章"
-
-[[params.mainMenu]]
-    link = "/gallery"
-    text = "图片"
-
-[[params.mainMenu]]
-    link = "/about"
-    text = "关于我"
-    
+## Main Menu
+[[menu.main]]
+    name = "Posts"
+    weight = 100
+    identifier = "posts"
+    url = "/posts/"
+[[menu.main]]
+    name = "About"
+    identifier = "about"
+    weight = 200
+    url = "/about/"

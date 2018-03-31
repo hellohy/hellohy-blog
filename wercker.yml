@@ -4,7 +4,7 @@ build:
   steps:
       - arjen/hugo-build:
         version: "HEAD"
-        theme: hugo-theme-sam
+        theme: hyde-hyde
 deploy:
   steps:
     - install-packages:
