@@ -1,4 +1,4 @@
-baseurl                 = "https://hellohy.github.io"               # Your domain name. Must end with "/"
+baseurl                 = "https://hellohy.github.io/"               # Your domain name. Must end with "/"
 languageCode            = "zh-CN"
 title                   = "Hellohy"
 theme                   = "hugo-theme-sam"
