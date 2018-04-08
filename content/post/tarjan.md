@@ -1,11 +1,14 @@
 ---
-title: javascript实现Tarjan算法寻找有向图的强连通分量
-date: 2018-03-22 02:06:29
-showDate: true
-tags: ['graph', 'tarjan']
+title: Tarjan算法寻找有向图的强连通分量
+date: 2018-03-20 12:06:29
+author: 黄云
+tags: 
+- graph
+- tarjan
+- 工程院三部二处
 ---
 
-javascript实现Tarjan算法寻找有向图的强连通分量
+Tarjan算法寻找有向图的强连通分量
 
 本文将介绍如何用javascript实现Tarjan算法来寻找图的强连通分量，在此之前，会简单介绍一些图的定义，图的邻接表和邻接矩阵表示法，图的两种遍历方法，在解决问题的时候如何选用正确的数据结构来表示图
 
@@ -79,7 +82,7 @@ ps:链表和数组很相似，在javascript中，数组是基于对象实现的�
 2.再递归地去访问初始节点的邻接链表中其他没有访问到的节点
 
 示意图：
-![image](dfs.gif)
+![image](images/dfs.gif)
 
 
 ### 广度优先搜索BFS
@@ -93,7 +96,7 @@ ps:链表和数组很相似，在javascript中，数组是基于对象实现的�
 3.将所有与v相邻的未访问的节点添加到队列
 
 示意图：
-![image](bfs.jpg)
+![image](images/bfs.jpg)
 
 
 ## Tarjan算法
@@ -105,7 +108,7 @@ ps:链表和数组很相似，在javascript中，数组是基于对象实现的�
 首先还是dfs过程
 （注意搜过的点不会再搜） 则能产生环的只有 **指向已经遍历过的点**的边
 
-![image](https://segmentfault.com/img/bVIqzn?w=340&h=345)
+![image](images/1.jpg)
 
 只有红色与绿色边有可能产生环。
 对于深搜过程，我们需要一个栈来保存当前所在路径上的所有点（栈中所有点一定是有父子关系的）
@@ -124,7 +127,7 @@ ps:链表和数组很相似，在javascript中，数组是基于对象实现的�
 
 对下面两种边进行处理
 
-![image](https://segmentfault.com/img/bVIqz8?w=120&h=263)
+![image](images/2.jpg)
 
 Stack = {1,2,3}。3没有多余的其他边，因此3退栈，把3作为一个强连通分量
 
@@ -132,7 +135,7 @@ Stack = {1,2,3}。3没有多余的其他边，因此3退栈，把3作为一个�
 
 再次深搜
 
-![image](https://segmentfault.com/img/bVIqAf?w=114&h=261)
+![image](images/3.jpg)
 
 此时栈 Stack = {1,2,7}
 发现红边指向了已经遍历过的点3 => 是上述的2种边之一
@@ -148,7 +151,7 @@ Stack = {1,2,3}。3没有多余的其他边，因此3退栈，把3作为一个�
 
 再次深搜
 
-![image](https://segmentfault.com/img/bVIqAp?w=229&h=343)
+![image](images/4.jpg)
 
 此时 Stack = {1,4,5,6}
 发现绿边指向了已经遍历过的点4 => 是上述的2种边之一
@@ -161,7 +164,7 @@ Stack = {1,2,3}。3没有多余的其他边，因此3退栈，把3作为一个�
 
 实际上可能会出现大环套小环
 
-![image](https://segmentfault.com/img/bVIqAI?w=364&h=389)
+![image](images/5.jpg)
 
 出现了大环套小环的情况，显然我们认为最大环是一个强连通分量(即:{4,5,6,8} ）
 
@@ -172,9 +175,9 @@ Stack = {1,2,3}。3没有多余的其他边，因此3退栈，把3作为一个�
 
 1.index 表示遍历到v点时是第几次dfs，时间戳。比如第一次dfs的index的值为 1，第二次dfs的index的值为 2，以此类推。可以通过比较大小来判断是爸爸还是儿子。（是后向边还是横插边？）
 
-2.lowIndex 表示从该节点v出发经过有向边可到达的所有节点中最小的index
+2.lowlink 表示从该节点v出发经过有向边可到达的所有节点中最小的index
 
-显然，v.lowIndex总是不大于v.index，当从v出发经有向边不能到达其他节点时，这两个值相等
+显然，v.lowlink总是不大于v.index，当从v出发经有向边不能到达其他节点时，这两个值相等
 
 
 伪代码：
@@ -221,9 +224,103 @@ algorithm tarjan is
        end function
 ```
 
-
+demo: [tarjan](http://runjs.cn/code/h2ffhtpp)
 
 对每个节点，过程`strongconnect`只被调用一次；整个程序中每条边最多被考虑一次。因此算法的运行时间关于图的边数是线性的，所以算法复杂度：O(|V|+|E|)
+
+```javascript
+function Graph(vertices){
+    this.vertices = vertices || [];
+}
+
+function Vertex(name){
+    this.name = name || null;
+    this.connections = [];
+    
+    // used in tarjan algorithm
+    // went ahead and explicity initalized them
+    this.index= -1;
+    this.lowlink = -1;
+}
+Vertex.prototype = {
+    equals: function(vertex){
+        // equality check based on vertex name
+        return (vertex.name && this.name==vertex.name);
+    }
+};
+
+function VertexStack(vertices) {
+    this.vertices = vertices || [];
+}
+VertexStack.prototype = {
+    contains: function(vertex){
+        for (var i in this.vertices){
+            if (this.vertices[i].equals(vertex)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+function Tarjan(graph) {
+    this.index = 0;
+    this.stack = new VertexStack();
+    this.graph = graph;
+    this.scc = [];
+}
+Tarjan.prototype = {
+    run: function(){
+        for (var i in this.graph.vertices){
+            if (this.graph.vertices[i].index<0){
+                this.strongconnect(this.graph.vertices[i]);
+            }
+        }
+        return this.scc;
+    },
+    strongconnect: function(vertex){
+        // Set the depth index for v to the smallest unused index
+        vertex.index = this.index;
+        vertex.lowlink = this.index;
+        this.index = this.index + 1;
+        this.stack.vertices.push(vertex);
+        
+        // Consider successors of v
+        // aka... consider each vertex in vertex.connections
+        for (var i in vertex.connections){
+            var v = vertex;
+            var w = vertex.connections[i];
+            if (w.index<0){
+                // Successor w has not yet been visited; recurse on it
+                this.strongconnect(w);
+                v.lowlink = Math.min(v.lowlink,w.lowlink);
+            } else if (this.stack.contains(w)){
+                // Successor w is in stack S and hence in the current SCC
+                v.lowlink = Math.min(v.lowlink,w.index);
+            }
+        }
+        
+        // If v is a root node, pop the stack and generate an SCC
+        if (vertex.lowlink==vertex.index){
+            // start a new strongly connected component
+            var vertices = [];
+            var w = null;
+            if (this.stack.vertices.length>0){
+                do {
+                    w = this.stack.vertices.pop();
+                    // add w to current strongly connected component
+                    vertices.push(w);
+                } while (!vertex.equals(w));
+            }
+            // output the current strongly connected component
+            // ... i'm going to push the results to a member scc array variable
+            if (vertices.length>0){
+                this.scc.push(vertices);
+            }
+        }
+    }
+};
+```
 
 ## 分图算法
 
