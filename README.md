@@ -1,0 +1,3 @@
+- hugo server
+- hugo new post/hello.md
+- hugo new post/hello.md -k posts //使用archetypes/posts模板

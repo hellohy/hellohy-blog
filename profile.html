@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>profile</title>
+</head>
+
+<body>
+    <button id="create">创建分离的dom</button>
+    <button id="grow">增加字符串</button>
+    <script>
+        window.onload = function () {
+            var detachedNodes;
+
+            function create() {
+                var ul = document.createElement('ul');
+                for (var i = 0; i < 10; i++) {
+                    var li = document.createElement('li');
+                    ul.appendChild(li);
+                }
+                detachedTree = ul;
+                console.log('create')
+            }
+
+            document.getElementById('create').addEventListener('click', create);
+
+            var x = [];
+
+            function grow() {
+                x.push(new Array(1000000).join('x'));
+                console.log('grow')
+            }
+
+            document.getElementById('grow').addEventListener('click', grow);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -5,7 +5,6 @@ author: 黄云
 tags: 
 - graph
 - tarjan
-- 工程院三部二处
 ---
 
 Tarjan算法寻找有向图的强连通分量
