@@ -62,6 +62,9 @@ RTMP | 实时性好，延迟低（1~3s）| 1.高并发下不稳定<br>2.IOS平�
 同时可以看到 HLS 协议本质还是一个个的 HTTP 请求 / 响应，所以适应性很好，不会受到防火墙影响。但它也有一个致命的弱点：延迟现象非常明显。如果每个 ts 按照 5 秒来切分，一个 m3u8 放 6 个 ts 索引，那么至少就会带来 30 秒的延迟。如果减少每个 ts 的长度，减少 m3u8 中的索引数，延时确实会减少，但会带来更频繁的缓冲，对服务端的请求压力也会成倍增加。所以只能根据实际情况找到一个折中的点。
 
 ## DEMO
+
+项目使用vue-cli搭建，主要采用[vue-video-player](https://github.com/surmon-china/vue-video-player)以及viedo.js的插件[videojs-contrib-hls](https://github.com/videojs/videojs-contrib-hls)来实现直播流的播放：
+
 [demo 源码](https://github.com/hellohy/vue-hls)
 
 [在线演示](https://hellohy.github.io/vue-hls/#/)
@@ -71,7 +74,7 @@ RTMP | 实时性好，延迟低（1~3s）| 1.高并发下不稳定<br>2.IOS平�
 ![demo](demo.png)
 
 ## 总结
-如果采用HLS技术直播，可能需要重点关注一下这些问题：
+如果采用HLS技术直播，客户端可能需要重点关注一下这些问题：
 
 1. H5 HLS 播放卡顿问题，server 端可以做好分片策略，将 ts 文件放在 CDN 上，前端可尽量做到 DNS 缓存等。
 2. 要达到更好的实时互动，可以采用RTMP
