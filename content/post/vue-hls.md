@@ -2,7 +2,7 @@
 title: "h5直播技术探索"
 date: 2018-08-05T17:20:18+08:00
 draft: false
-tags: ["javascript","story"]
+tags: ["javascript", "vue", "hls"]
 ---
 
 本文主要是对目前WEB端主流的直播技术进行一些探索后整理的资料

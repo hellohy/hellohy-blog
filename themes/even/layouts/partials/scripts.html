@@ -10,6 +10,22 @@
   {{ if .Site.Params.fancybox }}<script type="text/javascript" src="{{ "lib/fancybox/jquery.fancybox-3.1.20.min.js" | relURL }}"></script>{{ end }}
 {{- end -}}
 
+<!-- timeago.JS -->
+{{- if and (or .Params.enableOutdatedInfoWarning (and .Site.Params.outdatedInfoWarning.enable (ne .Params.enableOutdatedInfoWarning false))) (or .IsPage .IsHome) }}
+  {{- if .Site.Params.publicCDN.enable }}
+  {{ .Site.Params.publicCDN.timeagoJS | safeHTML }}
+  {{ .Site.Params.publicCDN.timeagoLocalesJS | safeHTML }}
+  {{- else }}
+  <script type="text/javascript" src="{{ "lib/timeago/timeago-3.0.2.min.js" | relURL }}"></script>
+  <script type="text/javascript" src="{{ "lib/timeago/timeago.locales-3.0.2.min.js" | relURL }}"></script>
+  {{- end }}
+<script>  // NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive)
+  var languageCode = {{ .Site.LanguageCode }}.replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+  timeago().render(document.querySelectorAll('.timeago'), languageCode);
+  timeago.cancel();  // stop update
+</script>
+{{- end }}
+
 <!-- flowchart -->
 {{- if and (or .Params.flowchartDiagrams.enable (and .Site.Params.flowchartDiagrams.enable (ne .Params.flowchartDiagrams.enable false))) (or .IsPage .IsHome) -}}
 <script>
@@ -38,13 +54,16 @@
 <script src="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js" integrity="sha384-8748Vn52gHJYJI0XEuPB2QlPVNUkJlJn9tHqKec6J3q2r9l8fvRxrgn/E5ZHV0sP" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.css" integrity="sha384-6QbLKJMz5dS3adWSeINZe74uSydBGFbnzaAYmp+tKyq60S7H2p6V7g1TysM5lAaF" crossorigin="anonymous">
 {{- end }}
-<script type="text/javascript" src="{{ "dist/even.min.js?v=3.1.1" | relURL }}"></script>
+<script type="text/javascript" src="{{ "dist/even.min.js?v=3.2.0" | relURL }}"></script>
 
 {{- if and (or .Params.mathjax (and .Site.Params.mathjax (ne .Params.mathjax false))) (or .IsPage .IsHome) }}
   <script type="text/javascript">
     window.MathJax = {
       {{ if or .Params.mathjaxEnableSingleDollar (and .Site.Params.mathjaxEnableSingleDollar (ne .Params.mathjaxEnableSingleDollar false)) -}}
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      {{ end -}}
+      {{ if or .Params.mathjaxEnableAutoNumber (and .Site.Params.mathjaxEnableAutoNumber (ne .Params.mathjaxEnableAutoNumber false)) -}}
+        TeX: {equationNumbers: {autoNumber: "AMS"}},
       {{ end -}}
       showProcessingMessages: false,
       messageStyle: 'none'
