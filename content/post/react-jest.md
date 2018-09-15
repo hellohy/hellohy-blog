@@ -2,7 +2,7 @@
 title: "React Jest"
 date: 2018-07-23T01:46:51+08:00
 draft: false
-tags: ["javascript","story"]
+tags: ["javascript", "react", "test", "jest"]
 ---
 
 初探前端测试框架 Jest
