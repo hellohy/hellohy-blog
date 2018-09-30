@@ -2,6 +2,7 @@
 title: es6-cheatsheet
 date: 2016-12-04 23:05:33
 tags: ["es6", "js"]
+draft: true
 subtitle: Standard Excerpts are not supported in Clean Blog but you can use subtitles in the front matter to display text in the index.
 ---
 

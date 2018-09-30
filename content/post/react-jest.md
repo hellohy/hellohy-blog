@@ -1,7 +1,7 @@
 ---
 title: "React Jest"
 date: 2018-07-23T01:46:51+08:00
-draft: false
+draft: true
 tags: ["javascript", "react", "test", "jest"]
 ---
 
